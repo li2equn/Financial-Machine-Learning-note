@@ -5,5 +5,5 @@
 ## Learning Side and Size
 ## Meta Labeling
 ## How to use Meta Labeling
-### The Quantamental Way
+## The Quantamental Way
 ## Dropping Unnecessary Labels
