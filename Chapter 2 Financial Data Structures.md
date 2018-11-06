@@ -45,7 +45,11 @@
   
 ## Information-driven Bars
 ### Tick information bars
-Consider a sequence of ticks ![](https://latex.codecogs.com/gif.latex?%7B%28p_t%2Cv_t%29%7D_%7Bt%3D1%2C...%2CT%7D)
+Consider a sequence of ticks ![](https://latex.codecogs.com/gif.latex?%7B%28p_t%2Cv_t%29%7D_%7Bt%3D1%2C...%2CT%7D) where ![](https://latex.codecogs.com/gif.latex?p_t) is the price associated with tick t and ![](https://latex.codecogs.com/gif.latex?v_t) is the volume associated with tick t. The so-called tick rule defins a sequence ![](https://latex.codecogs.com/gif.latex?%5C%7Bb_t%5C%7D_%7Bt%3D1%2C...%2CT%7D) where
+
+![](https://latex.codecogs.com/gif.latex?b_t%20%3D%5Cleft%5C%7B%5Cbegin%7Bmatrix%7D%20b_%7Bt-1%7D%20%26%5Ctext%7Bif%7D%20%26%5CDelta%20p_t%20%3D%200%20%5C%5C%20%5Cfrac%7B%5Cleft%20%7C%20%5CDelta%20p_t%20%5Cright%20%7C%7D%7B%5CDelta%20p_t%7D%26%5Ctext%7Bif%7D%26%20%5CDelta%20p_t%20%5Cneq%200%20%5Cend%7Bmatrix%7D%5Cright.)
+
+with ![](https://latex.codecogs.com/gif.latex?b_t%20%5Cin%20%5C%7B-1%2C1%5C%7D), and the boundary condition ![](https://latex.codecogs.com/gif.latex?b_0) is set to match the terminal value ![](https://latex.codecogs.com/gif.latex?b_T) from the immediately preceding bar
 ### Volume/dollar imbalance bars
 ### Tick runs bars
 ### Volume/dollar runs bars
