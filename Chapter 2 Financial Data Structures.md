@@ -45,8 +45,7 @@
   
 ## Information-driven Bars
 ### Tick information bars
-Consider a sequence of ticks \\( {(p_t,v_t)} \\) 
-
+Consider a sequence of ticks ![](https://latex.codecogs.com/gif.latex?%7B%28p_t%2Cv_t%29%7D_%7Bt%3D1%2C...%2CT%7D)
 ### Volume/dollar imbalance bars
 ### Tick runs bars
 ### Volume/dollar runs bars
