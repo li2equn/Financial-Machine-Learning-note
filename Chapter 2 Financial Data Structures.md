@@ -135,3 +135,17 @@ with ![](https://latex.codecogs.com/gif.latex?b_t%20%5Cin%20%5C%7B-1%2C1%5C%7D),
 ![](https://latex.codecogs.com/gif.latex?T%5E*%20%3D%20%5Carg%20%5Cmin_T%20%5C%7B%5Ctheta_T%20%5Cge%20E_0%5BT%5D%5Cmax%5C%7BP%5Bb_t%3D1%5DE_0%5Bv_t%7Cb_t%3D1%5D%2C%281-P%5Bb_t%3D1%5D%29E_0%5Bv_t%7Cb_t%3D-1%5D%5C%7D)
 
 # Dealing with Multi-Product Series
+## The ETF Trick
+produce a time series that reflects the value of $1 invested in a spread. Changes in the series will reflect changes in the PnL, the series will be strictly positive, and the implementation shortfall will be taken into account. This will be the series used to model, generate signals, and trade, as if it were an ETF.
+
+Suppose that we are given a history of bars. These bars contain the following columns:
+- ![](https://latex.codecogs.com/gif.latex?o_%7Bi%2Ct%7D) is the raw open price of instrument i =1,...,I at bar t = 1,...T
+- ![](https://latex.codecogs.com/gif.latex?p_%7Bi%2Ct%7D) is the raw close price of instrument i =1,...,I at bar t = 1,...T
+- ![](https://latex.codecogs.com/gif.latex?%5Cvarphi_%7Bi%2Ct%7D) is the USD value of one point of instrument i =1,...,I at bar t = 1,...T
+- ![](https://latex.codecogs.com/gif.latex?v_%7Bi%2Ct%7D) is the volume of instrument of instrument i =1,...,I at bar t = 1,...T
+- ![](https://latex.codecogs.com/gif.latex?d_%7Bi%2Ct%7D) is the carry, dividend, or coupon paid by instrument i ar bar t. This variable can also be used to charge margin costs, or costs of funding.
+All instruments i = 1,...I were tradeable at bar t = 1,...T. In other words, even if some instruments were not tradeable over the entirely of the time interval [t-1,t], at least they were tradeable at times t-1 and t.
+## OCA Weights
+## Single Future Roll
+
+# Sampling Features
