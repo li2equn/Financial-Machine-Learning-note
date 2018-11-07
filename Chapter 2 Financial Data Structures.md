@@ -44,6 +44,9 @@
   - the number of outstanding shares often changes multiple times over the course of a security's life, as a result of corporate actions.
   
 ## Information-driven Bars
+- TIBs, VIBs, DIBs, monitor order flow imbalance, as measured in terms of ticks, volumns, and dollar values exchanged.
+- TRBs, VRBs, DRBs:
+Large traders will sweep the order book, use iceberg orders, or slice a parent order into multiple children, all of which leave a trace of runs in the ![](https://latex.codecogs.com/gif.latex?%5C%7Bb_t%5C%7D_%7Bt%3D1%2C...%2CT%7D) sequence. For this reason, it can be useful to monitor the sequence of buys in the overall volume, and take samples when that sequence diverges from our expectation
 ### Tick information bars
 Consider a sequence of ticks ![](https://latex.codecogs.com/gif.latex?%7B%28p_t%2Cv_t%29%7D_%7Bt%3D1%2C...%2CT%7D) where ![](https://latex.codecogs.com/gif.latex?p_t) is the price associated with tick t and ![](https://latex.codecogs.com/gif.latex?v_t) is the volume associated with tick t. The so-called tick rule defins a sequence ![](https://latex.codecogs.com/gif.latex?%5C%7Bb_t%5C%7D_%7Bt%3D1%2C...%2CT%7D) where
 
@@ -82,12 +85,51 @@ with ![](https://latex.codecogs.com/gif.latex?b_t%20%5Cin%20%5C%7B-1%2C1%5C%7D),
   Let us denote
     - ![](https://latex.codecogs.com/gif.latex?v%5E&plus;%3DP%5Bb_t%3D1%5DE_0%5Bv_t%7Cb_t%3D1%5D)
     - ![](https://latex.codecogs.com/gif.latex?v%5E-%3DP%5Bb_t%3D-1%5DE_0%5Bv_t%7Cb_t%3D-1%5D)
+    
     you can think of ![](https://latex.codecogs.com/gif.latex?v%5E&plus) and ![](https://latex.codecogs.com/gif.latex?v%5E&-) as decomposing the initial expectation of ![](https://latex.codecogs.com/gif.latex?v_t) into the component contributed by buys and the component contributed by sells, then 
     ![](https://latex.codecogs.com/gif.latex?E_0%5B%5Ctheta_T%5D%3D%20E_0%5BT%5D%28v%5E&plus;-v%5E-%29%20%3D%20E_0%5BT%5D%282v%5E&plus;-E_0%5Bv_t%5D%29)
+    
     In practice we can estimate
     - ![](https://latex.codecogs.com/gif.latex?E_0%5BT%5D) as an exponentially weighted moving average of T values from prior bars
     - ![](https://latex.codecogs.com/gif.latex?%282v%5E&plus;-E_0%5Bv_t%5D%29) as an exponentially weighted moving average of ![](https://latex.codecogs.com/gif.latex?b_tv_t) values from prior bars
   3. we define VIB or DIB as a ![](https://latex.codecogs.com/gif.latex?T%5E*)-contiguous subset of ticks such that the following condition is met:
   ![](https://latex.codecogs.com/gif.latex?T%5E*%20%3D%20%5Carg%20%5Cmin_T%20%5C%7B%7C%5Ctheta_T%7C%5Cge%20E_0%5BT%5D%7C2v%5E&plus;-E_0%5Bv_t%5D%7C%5C%7D)
 ### Tick runs bars
+1. we define the length of the current run as
+
+![](https://latex.codecogs.com/gif.latex?%5Ctheta_T%20%3D%20%5Cmax%5C%7B%5Csum_%7Bt%7Cb_t%3D1%7D%5ETb_t,-%5Csum_%7Bt%7Cb_t%3D-1%7D%5ETb_t%5C%7D)
+
+2. we compute the expected value of ![](https://latex.codecogs.com/gif.latex?%5Ctheta_T) at the beginning of the bar
+
+![](https://latex.codecogs.com/gif.latex?E_0%5B%5Ctheta_T%5D%20%3D%20E_0%5BT%5D%5Cmax%5C%7BP%5Bb_t%3D1%5D%2C1-P%5Bb_t%3D1%5D%5C%7D)
+
+  In practice, we can estimate:
+  - ![](https://latex.codecogs.com/gif.latex?E_0%5BT%5D) as an exponentially weighted moving average of T values from prior bars
+  - ![](https://latex.codecogs.com/gif.latex?%282v%5E&plus;-E_0%5Bv_t%5D%29) as an exponentially weighted moving average of the proportioin of buy ticks from prior bars
+  
+3. we define a tick runs bar(TRB) as a ![](https://latex.codecogs.com/gif.latex?T%5E*)-contiguous subset of ticks such that the following condition is met:
+
+![](https://latex.codecogs.com/gif.latex?T%5E*%20%3D%20%5Carg%20%5Cmin_T%20%5C%7B%5Ctheta_T%20%5Cge%20E_0%5BT%5D%5Cmax%5C%7BP%5Bb_t%3D1%5D%2C1-P%5Bb_t%3D1%5D%5C%7D%5C%7D)
+
+- in this definition of runs, we allow for sequence breaks.
+  - instead of measuring the length of the longest sequence, we count the number of ticks of each side, without offsetting them.
+
 ### Volume/dollar runs bars
+- we wish to sample bars whenever the volumes or dollars traded by one side exceed our expectation for a bar.
+- Determine the index T of the last observation in the bar
+  1. we define the length of the current run as
+
+![](https://latex.codecogs.com/gif.latex?%5Ctheta_T%20%3D%20%5Cmax%5C%7B%5Csum_%7Bt%7Cb_t%3D1%7D%5ET%20b_tv_t%2C%20-%5Csum_%7Bt%7Cb_t%3D-1%7D%5ET%20b_tv_t%5C%7D)
+
+2. we compute the expected value of ![](https://latex.codecogs.com/gif.latex?%5Ctheta_T) at the beginning of the bar
+
+![](https://latex.codecogs.com/gif.latex?E_0%5B%5Ctheta_T%5D%20%3D%20E_0%5BT%5D%5Cmax%5C%7BP%5Bb_t%3D1%5DE_0%5Bv_t%7Cb_t%3D1%5D%2C%281-P%5Bb_t%3D1%5D%29E_0%5Bv_t%7Cb_t%3D-1%5D%5C%7D)
+
+  In practice, we can estimate:
+  - ![](https://latex.codecogs.com/gif.latex?E_0%5BT%5D) as an exponentially weighted moving average of T values from prior bars
+  - ![](https://latex.codecogs.com/gif.latex?%282v%5E&plus;-E_0%5Bv_t%5D%29) as an exponentially weighted moving average of the proportioin of buy ticks from prior bars
+  - ![](https://latex.codecogs.com/gif.latex?E_0%5Bv_t%7Cb_t%3D1%5D) as an exponentially weighted moving average of the buy volumns from prior bars
+  
+3. we define a tick runs bar(TRB) as a ![](https://latex.codecogs.com/gif.latex?T%5E*)-contiguous subset of ticks such that the following condition is met:
+
+![](https://latex.codecogs.com/gif.latex?T%5E*%20%3D%20%5Carg%20%5Cmin_T%20%5C%7B%5Ctheta_T%20%5Cge%20E_0%5BT%5D%5Cmax%5C%7BP%5Bb_t%3D1%5DE_0%5Bv_t%7Cb_t%3D1%5D%2C%281-P%5Bb_t%3D1%5D%29E_0%5Bv_t%7Cb_t%3D-1%5D%5C%7D)
