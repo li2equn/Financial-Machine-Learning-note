@@ -133,3 +133,5 @@ with ![](https://latex.codecogs.com/gif.latex?b_t%20%5Cin%20%5C%7B-1%2C1%5C%7D),
 3. we define a tick runs bar(TRB) as a ![](https://latex.codecogs.com/gif.latex?T%5E*)-contiguous subset of ticks such that the following condition is met:
 
 ![](https://latex.codecogs.com/gif.latex?T%5E*%20%3D%20%5Carg%20%5Cmin_T%20%5C%7B%5Ctheta_T%20%5Cge%20E_0%5BT%5D%5Cmax%5C%7BP%5Bb_t%3D1%5DE_0%5Bv_t%7Cb_t%3D1%5D%2C%281-P%5Bb_t%3D1%5D%29E_0%5Bv_t%7Cb_t%3D-1%5D%5C%7D)
+
+# Dealing with Multi-Product Series
