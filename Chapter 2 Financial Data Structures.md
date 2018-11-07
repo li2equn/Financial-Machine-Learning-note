@@ -145,6 +145,15 @@ Suppose that we are given a history of bars. These bars contain the following co
 - ![](https://latex.codecogs.com/gif.latex?v_%7Bi%2Ct%7D) is the volume of instrument of instrument i =1,...,I at bar t = 1,...T
 - ![](https://latex.codecogs.com/gif.latex?d_%7Bi%2Ct%7D) is the carry, dividend, or coupon paid by instrument i ar bar t. This variable can also be used to charge margin costs, or costs of funding.
 All instruments i = 1,...I were tradeable at bar t = 1,...T. In other words, even if some instruments were not tradeable over the entirely of the time interval [t-1,t], at least they were tradeable at times t-1 and t.
+
+For a basket of futures characterized by an allocation vector ![](https://latex.codecogs.com/gif.latex?%5Comega_t) rebalanced(or rolled) on bars ![](https://latex.codecogs.com/gif.latex?B%20%5Csubseteq%20%5C%7B1%2C...T%5C%7D), the $1 investment value ![](https://latex.codecogs.com/gif.latex?%5C%7BK_t%5C%7D) is derived as
+
+![](https://latex.codecogs.com/gif.latex?h_%7Bi%2Ct%7D%20%3D%20%5Cleft%5C%7B%5Cbegin%7Bmatrix%7D%20%5Cfrac%7B%5Comega_%7Bi%2Ct%7DK_t%7D%7Bo_%7Bi%2Ct&plus;1%7D%5Cvarphi_%7Bi%2Ct%7D%5Csum_%7Bi%3D1%7D%5EI%7C%5Comega_%7Bi%2Ct%7D%7C%7D%20%26%5Ctext%7Bif%7D%20%26t%20%5Cin%20B%20%5C%5C%20h_%7Bi%2Ct-1%7D%20%26%5Ctext%7Botherwise%7D%20%26%20%5Cend%7Bmatrix%7D%5Cright.)
+
+![](https://latex.codecogs.com/gif.latex?%5Cdelta_%7Bi%2Ct%7D%20%3D%20%5Cleft%5C%7B%5Cbegin%7Bmatrix%7D%20p_%7Bi%2Ct%7D-o_%7Bi%2Ct%7D%20%26%5Ctext%7Bif%7D%20%26%5C%28t-1%5C%29%20%5Cin%20B%20%5C%5C%20%5CDelta%20p_%7Bi%2Ct%7D%20%26%5Ctext%7Botherwise%7D%20%26%20%5Cend%7Bmatrix%7D%5Cright.)
+
+![](https://latex.codecogs.com/gif.latex?K_t%20%3D%20K_%7Bt-1%7D&plus;%5Csum_%7Bi%3D1%7D%5EIh_%7Bi%2Ct-1%7D%5Cvarphi_%7Bi%2Ct%7D%5C%28%5Cdelta_%7Bi%2Ct%7D&plus;d_%7Bi%2Ct%7D%5C%29)
+
 ## OCA Weights
 ## Single Future Roll
 
