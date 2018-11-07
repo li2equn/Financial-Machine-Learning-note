@@ -135,7 +135,10 @@ with ![](https://latex.codecogs.com/gif.latex?b_t%20%5Cin%20%5C%7B-1%2C1%5C%7D),
 ![](https://latex.codecogs.com/gif.latex?T%5E*%20%3D%20%5Carg%20%5Cmin_T%20%5C%7B%5Ctheta_T%20%5Cge%20E_0%5BT%5D%5Cmax%5C%7BP%5Bb_t%3D1%5DE_0%5Bv_t%7Cb_t%3D1%5D%2C%281-P%5Bb_t%3D1%5D%29E_0%5Bv_t%7Cb_t%3D-1%5D%5C%7D)
 
 # Dealing with Multi-Product Series
+- modelling a time series of instruments, where the weights need to be dynamically adjusted over time.
+- dealing with products that pay irregular coupons or dividends, or that are subject to corporate actions.
 ## The ETF Trick
+We can model a basket of futures as if it was a signle non-expiring cash product.
 produce a time series that reflects the value of $1 invested in a spread. Changes in the series will reflect changes in the PnL, the series will be strictly positive, and the implementation shortfall will be taken into account. This will be the series used to model, generate signals, and trade, as if it were an ETF.
 
 Suppose that we are given a history of bars. These bars contain the following columns:
