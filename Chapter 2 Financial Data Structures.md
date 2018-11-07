@@ -171,6 +171,11 @@ When a unit is boutght or sold, the strategy must vharge this cost, which is equ
 
 Transaction cost are not necessarily linear, and those non-linear costs can be simulated by the strategy based on the above information
 ## OCA Weights
+Consider an IID multivariate Gaussian process characterized by a vector of means \mu, of size Nx1, and a covariance matrix V, of size NxN. This stochastic process describes an invariant random variable(like the returns of stocks, the changes in yield of bonds, or changes in options' volatilities) for a portfolio of N instruments. We would like to compute the vector of allocation w that conforms to a particular distribution of risks across V's principal components.
+
+1. We perform a spectral decomposition ![](https://latex.codecogs.com/gif.latex?VW%3DV%5CLambda)
+2. Given a vector of alloction w, we can compute the portfolio's risk as 
+
 ```python
 def
 ```
