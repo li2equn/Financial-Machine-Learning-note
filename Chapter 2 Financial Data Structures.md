@@ -154,7 +154,23 @@ For a basket of futures characterized by an allocation vector ![](https://latex.
 
 ![](https://latex.codecogs.com/gif.latex?K_t%20%3D%20K_%7Bt-1%7D&plus;%5Csum_%7Bi%3D1%7D%5EIh_%7Bi%2Ct-1%7D%5Cvarphi_%7Bi%2Ct%7D%5C%28%5Cdelta_%7Bi%2Ct%7D&plus;d_%7Bi%2Ct%7D%5C%29)
 
+- ![](https://latex.codecogs.com/gif.latex?K_0%3D1) in the initial AUM
+- Variable ![](https://latex.codecogs.com/gif.latex?h_%7Bi%2Ct%7D) represents the hodlings(number of securities or contracts) of instrument i at time t.
+- Variable ![](https://latex.codecogs.com/gif.latex?%5Cdelta_%7Bi%2Ct%7D) is the change of market value between t-1 and t for instrument i
+- profts and losses are being reinvested whenever ![](https://latex.codecogs.com/gif.latex?t%20%5Cin%20B), hence preventing the negative prics.
+- Dividends are already embedded in K_t so there is no need for the strategy to know about them
+
+Let ![](https://latex.codecogs.com/gif.latex?%5Ctau_i) be the transaction cost associated with trading $1 od instrument t. There are three additional variables that the strategy need to know for every observed bar t:
+1. Rebalance cost: ![](https://latex.codecogs.com/gif.latex?c_t%3D%5Csum_%7Bi%3D1%7D%5EI%5C%28%7Ch_%7Bi%2Ct-1%7D%7Cp_%7Bi%2Ct%7D&plus;%7Ch_%7Bi%2Ct%7D%7Co_%7Bi%2Ct&plus;1%7D%5C%29%5Cvarphi_%7Bi%2Ct%7D%5Ctau_i%2C%20%5Cforall%20t%20%5Cin%20B)
+2. Bid-ask spread: ![](https://latex.codecogs.com/gif.latex?%5Ctilde%7Bc_t%7D%3D%5Csum_%7Bi%3D1%7D%5EIh_%7Bi%2Ct-1%7Dp_%7Bi%2Ct%7D%5Cvarphi_%7Bi%2Ct%7D%5Ctau_i)
+When a unit is boutght or sold, the strategy must vharge this cost, which is equivalent to crossing the bid-ask spread of this cirtual ETF
+3. Volume: ![](https://latex.codecogs.com/gif.latex?v_t%20%3D%20%5Cmin_i%5C%7B%5Cfrac%7Bv_%7Bi%2Ct%7D%7D%7B%7Ch_%7Bi%2Ct-1%7D%7C%7D%5C%7D)
+
+Transaction cost are not necessarily linear, and those non-linear costs can be simulated by the strategy based on the above information
 ## OCA Weights
+```python
+def
+```
 ## Single Future Roll
 
 # Sampling Features
