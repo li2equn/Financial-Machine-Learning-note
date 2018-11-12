@@ -170,14 +170,25 @@ When a unit is boutght or sold, the strategy must vharge this cost, which is equ
 3. Volume: ![](https://latex.codecogs.com/gif.latex?v_t%20%3D%20%5Cmin_i%5C%7B%5Cfrac%7Bv_%7Bi%2Ct%7D%7D%7B%7Ch_%7Bi%2Ct-1%7D%7C%7D%5C%7D)
 
 Transaction cost are not necessarily linear, and those non-linear costs can be simulated by the strategy based on the above information
-## OCA Weights
+## PCA Weights
 Consider an IID multivariate Gaussian process characterized by a vector of means \mu, of size Nx1, and a covariance matrix V, of size NxN. This stochastic process describes an invariant random variable(like the returns of stocks, the changes in yield of bonds, or changes in options' volatilities) for a portfolio of N instruments. We would like to compute the vector of allocation w that conforms to a particular distribution of risks across V's principal components.
 
-1. We perform a spectral decomposition ![](https://latex.codecogs.com/gif.latex?VW%3DV%5CLambda)
-2. Given a vector of alloction w, we can compute the portfolio's risk as 
-
+1. We perform a spectral decomposition ![](https://latex.codecogs.com/gif.latex?VW%3DV%5CLambda), where the columns in W are reordered so that the elements of ![](https://latex.codecogs.com/gif.latex?%5CLambda)'s diagonal are sorted in descending order
+2. Given a vector of alloction w, we can compute the portfolio's risk as ![](https://latex.codecogs.com/gif.latex?%5Csigma%5E2%20%3D%20%5Comega%27V%5Comega%20%3D%20%5Comega%27W%5CLambda%20W%27%5Comega%3D%5Cbeta%27%20%5CLambda%20%5Cbeta%20%3D%20%28%5CLambda%5E%7B1/2%7D%20%5Cbeta%29%27%28%5CLambda%5E%7B1/2%7D%20%5Cbeta%29), where ![](https://latex.codecogs.com/gif.latex?%5Cbeta) represents the projection of w on the orthogonal basis
+3. is a diagonal matrix, thus ![](https://latex.codecogs.com/gif.latex?%5Csigma%5E2%20%3D%20%5Csum_%7Bn%3D1%7D%5EN%5Cbeta%5E2_n%5CLambda_%7Bn%2Cn%7D) and the risk attributed to the nth component is ![](https://latex.codecogs.com/gif.latex?R_n%3D%5Cbeta_n%5E2%5CLambda_%7Bn%2Cn%7D%5Csigma%5E%7B-2%7D%20%3D%20%5BW%27%5Comega%5D_n%5E2%5CLambda_%7Bn%2Cn%7D%5Csigma%5E%7B-2%7D). You can interpret ![](https://latex.codecogs.com/gif.latex?%5C%7BR_n%5C%7D_%7Bn%3D1%2C...%2CN%7D) as the distribution of risks across the orthogonal components.
+4. we would like to compute the vector w that delivers a usder-defined risk distribution R. From earlier steps, ![](https://latex.codecogs.com/gif.latex?%5Cbeta%20%3D%20%5C%7B%5Csigma%5Csqrt%7B%5Cfrac%7BR_n%7D%7B%5CLambda_%7Bn%2Cn%7D%7D%7D%5C%7D_%7Bn%3D1%2C...%2CN%7D), which represents the allocation in the new orthogonal basis.
+5. the allocation in the old basis is given by ![](https://latex.codecogs.com/gif.latex?%5Comega%20%3D%20W%20%5Cbeta) Re-scaling w merely re-scales ![](https://latex.codecogs.com/gif.latex?%5Csigma), hence keeping the risk distribution constant
 ```python
-def
+def pcaWeights(cov, RiskDist = None, riskTarget=1.):
+    eVal,eVec = np.linalg.eigh(cov)#must be Hermitian
+    indices = eVal.argsort()[::-1] # sorting eVal desc
+    eVal,eVec = eVal[indices],eVec[:,indices]
+    if riskDist = None:
+        riskDist = np.zeros(cov.shape[0])
+        riskDist[-1]=1
+    loads = riskTarget*(riskDist/eVal)**.5
+    wghts = np.dot(eVec,np.reshape(loads,(-1,1)))
+    return wghts
 ```
 ## Single Future Roll
 
